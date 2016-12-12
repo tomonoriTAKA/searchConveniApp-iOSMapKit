@@ -12,6 +12,12 @@
 		D2A950AD1DFE92D900078E49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A950AB1DFE92D900078E49 /* Main.storyboard */; };
 		D2A950AF1DFE92D900078E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A950AE1DFE92D900078E49 /* Assets.xcassets */; };
 		D2A950B21DFE92D900078E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A950B01DFE92D900078E49 /* LaunchScreen.storyboard */; };
+		D2A950BB1DFE92FA00078E49 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */; };
+		D2A950BD1DFE930400078E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BC1DFE930400078E49 /* MapKit.framework */; };
+		D2A950C21DFE93C300078E49 /* trackingFollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A950BF1DFE93C300078E49 /* trackingFollow@2x.png */; };
+		D2A950C31DFE93C300078E49 /* trackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A950C01DFE93C300078E49 /* trackingHeading@2x.png */; };
+		D2A950C41DFE93C300078E49 /* trackingNone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2A950C11DFE93C300078E49 /* trackingNone@2x.png */; };
+		D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		D2A950AE1DFE92D900078E49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2A950B11DFE92D900078E49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2A950B31DFE92D900078E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D2A950BC1DFE930400078E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D2A950BF1DFE93C300078E49 /* trackingFollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackingFollow@2x.png"; sourceTree = "<group>"; };
+		D2A950C01DFE93C300078E49 /* trackingHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackingHeading@2x.png"; sourceTree = "<group>"; };
+		D2A950C11DFE93C300078E49 /* trackingNone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackingNone@2x.png"; sourceTree = "<group>"; };
+		D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = conveniMKPointoAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A950BD1DFE930400078E49 /* MapKit.framework in Frameworks */,
+				D2A950BB1DFE92FA00078E49 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +54,7 @@
 			children = (
 				D2A950A61DFE92D900078E49 /* searchConveniApp */,
 				D2A950A51DFE92D900078E49 /* Products */,
+				D2A950B91DFE92F900078E49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +69,35 @@
 		D2A950A61DFE92D900078E49 /* searchConveniApp */ = {
 			isa = PBXGroup;
 			children = (
+				D2A950BE1DFE93C300078E49 /* image */,
 				D2A950A71DFE92D900078E49 /* AppDelegate.swift */,
 				D2A950A91DFE92D900078E49 /* ViewController.swift */,
+				D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */,
 				D2A950AB1DFE92D900078E49 /* Main.storyboard */,
 				D2A950AE1DFE92D900078E49 /* Assets.xcassets */,
 				D2A950B01DFE92D900078E49 /* LaunchScreen.storyboard */,
 				D2A950B31DFE92D900078E49 /* Info.plist */,
 			);
 			path = searchConveniApp;
+			sourceTree = "<group>";
+		};
+		D2A950B91DFE92F900078E49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D2A950BC1DFE930400078E49 /* MapKit.framework */,
+				D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D2A950BE1DFE93C300078E49 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				D2A950BF1DFE93C300078E49 /* trackingFollow@2x.png */,
+				D2A950C01DFE93C300078E49 /* trackingHeading@2x.png */,
+				D2A950C11DFE93C300078E49 /* trackingNone@2x.png */,
+			);
+			path = image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,9 +160,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A950C31DFE93C300078E49 /* trackingHeading@2x.png in Resources */,
+				D2A950C21DFE93C300078E49 /* trackingFollow@2x.png in Resources */,
 				D2A950B21DFE92D900078E49 /* LaunchScreen.storyboard in Resources */,
 				D2A950AF1DFE92D900078E49 /* Assets.xcassets in Resources */,
 				D2A950AD1DFE92D900078E49 /* Main.storyboard in Resources */,
+				D2A950C41DFE93C300078E49 /* trackingNone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */,
 				D2A950AA1DFE92D900078E49 /* ViewController.swift in Sources */,
 				D2A950A81DFE92D900078E49 /* AppDelegate.swift in Sources */,
 			);

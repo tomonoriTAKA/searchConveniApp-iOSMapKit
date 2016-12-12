@@ -1,26 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Lo4-fd-QzZ">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="IKE-7E-Ubt">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lo4-fd-QzZ" customClass="ViewController" customModule="seekConveniApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="WVb-Zr-F1W"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pwo-9A-ur0"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="z2I-UD-Gnw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ri1-qh-ETz">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <gestureRecognizers/>
+                            </mapView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qch-Ta-YYm">
+                                <rect key="frame" x="0.0" y="70" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4Rj-rh-Vi5"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTd-QT-tSw">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem image="trackingNone.png" id="Lxu-9I-9Ku">
+                                        <connections>
+                                            <action selector="tapTrackingButton:" destination="Lo4-fd-QzZ" id="nFh-LA-IGQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jsx-I2-vAY" userLabel="user Location">
+                                <rect key="frame" x="0.0" y="593" width="375" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qch-Ta-YYm" firstAttribute="leading" secondItem="z2I-UD-Gnw" secondAttribute="leading" id="12R-v3-N1Q"/>
+                            <constraint firstAttribute="trailing" secondItem="jsx-I2-vAY" secondAttribute="trailing" id="22s-7U-1eG"/>
+                            <constraint firstItem="UTd-QT-tSw" firstAttribute="leading" secondItem="z2I-UD-Gnw" secondAttribute="leading" id="AJn-Hz-7Hd"/>
+                            <constraint firstItem="Ri1-qh-ETz" firstAttribute="top" secondItem="WVb-Zr-F1W" secondAttribute="bottom" id="D8O-qx-L5l"/>
+                            <constraint firstItem="UTd-QT-tSw" firstAttribute="top" secondItem="jsx-I2-vAY" secondAttribute="bottom" id="DDS-Gz-wSd"/>
+                            <constraint firstAttribute="trailing" secondItem="UTd-QT-tSw" secondAttribute="trailing" id="IkW-oO-fpj"/>
+                            <constraint firstItem="jsx-I2-vAY" firstAttribute="leading" secondItem="z2I-UD-Gnw" secondAttribute="leading" id="Wvv-j5-ocK"/>
+                            <constraint firstItem="Pwo-9A-ur0" firstAttribute="top" secondItem="Ri1-qh-ETz" secondAttribute="bottom" id="ZjK-H3-ABU"/>
+                            <constraint firstItem="qch-Ta-YYm" firstAttribute="top" secondItem="WVb-Zr-F1W" secondAttribute="bottom" constant="50" id="cYt-M2-g6P"/>
+                            <constraint firstItem="Pwo-9A-ur0" firstAttribute="top" secondItem="UTd-QT-tSw" secondAttribute="bottom" id="fv0-It-2W3"/>
+                            <constraint firstAttribute="trailing" secondItem="Ri1-qh-ETz" secondAttribute="trailing" id="s0B-YA-ULq"/>
+                            <constraint firstItem="Ri1-qh-ETz" firstAttribute="leading" secondItem="z2I-UD-Gnw" secondAttribute="leading" id="voW-1X-BZ9"/>
+                            <constraint firstAttribute="trailing" secondItem="qch-Ta-YYm" secondAttribute="trailing" id="vqP-rE-XTb"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="conveniMapView" destination="Ri1-qh-ETz" id="HMD-Mf-JRh"/>
+                        <outlet property="destSearchBar" destination="qch-Ta-YYm" id="4JJ-kZ-uw8"/>
+                        <outlet property="trackingButton" destination="Lxu-9I-9Ku" id="cb6-dr-MwG"/>
+                        <outlet property="userLocation" destination="jsx-I2-vAY" id="XqQ-kO-rue"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rzl-hO-LIs" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="B0f-4I-TaU">
+                    <connections>
+                        <action selector="pressMap:" destination="Lo4-fd-QzZ" id="7gi-L7-Pc7"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="-463" y="115"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="trackingNone.png" width="37" height="37"/>
+    </resources>
 </document>
