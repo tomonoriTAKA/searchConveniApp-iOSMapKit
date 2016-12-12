@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="IKE-7E-Ubt">
             <objects>
-                <viewController id="Lo4-fd-QzZ" customClass="ViewController" customModule="seekConveniApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lo4-fd-QzZ" customClass="ViewController" customModule="searchConveniApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WVb-Zr-F1W"/>
                         <viewControllerLayoutGuide type="bottom" id="Pwo-9A-ur0"/>
@@ -84,6 +84,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="trackingNone.png" width="37" height="37"/>
+        <image name="trackingNone.png" width="25" height="25"/>
     </resources>
 </document>
