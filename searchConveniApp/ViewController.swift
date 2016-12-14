@@ -146,23 +146,35 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
      */
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let myPinIdentifier = "PinAnnotationIdentifier"
-        
-        // ピンを生成.
-        let myPinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
-        
-        // アニメーションをつける.
-        myPinView.animatesDrop = true
-        
-        // コールアウトを表示する.
-        myPinView.canShowCallout = true
-        
-        myPinView.pinTintColor = UIColor.magenta
-        
-        // annotationを設定.
-        myPinView.annotation = annotation
-        
-        return myPinView
+        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
+            return nil
+        } else {
+            let identifier = "annotation"
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) { // 再利用できる場合はそのまま返す
+                return annotationView
+            } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
+                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
+                return annotationView
+            }
+        }
+        //        let myPinIdentifier = "PinAnnotationIdentifier"
+        //
+        //        // ピンを生成.
+        //        let myPinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
+        //
+        //        // アニメーションをつける.
+        //        myPinView.animatesDrop = true
+        //
+        //        // コールアウトを表示する.
+        //        myPinView.canShowCallout = true
+        //
+        //        myPinView.pinTintColor = UIColor.magenta
+        //
+        //        // annotationを設定.
+        //        myPinView.annotation = annotation
+        //        
+        //        return myPinView
         
     }
     
@@ -311,12 +323,12 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         // UIAlertControllerを作成する.
         let myAlert: UIAlertController = UIAlertController(title: "ピンの削除", message: "Delete this pin?", preferredStyle: .alert)
         
-        // OKが押されたらピンを削除するアクションを作成.
+        // OKが押されたらピンを削除するアラートアクションを作成.
         let myOkAction = UIAlertAction(title: "OK", style: .default) { action in
             mapView.removeAnnotation(view.annotation!)
         }
         
-        //ピンの削除をキャンセルするアクションを作成.
+        //ピンの削除をキャンセルするアラートアクションを作成.
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         
