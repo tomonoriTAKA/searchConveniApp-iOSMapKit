@@ -363,6 +363,45 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
     }
     
+    
+    //検索ボタン押下時の呼び出しメソッド
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        //すべてのピンを削除
+        conveniMapView.removeAnnotations(conveniMapView.annotations)
+        
+        //キーボードを閉じる。
+        destSearchBar.resignFirstResponder()
+        
+        //検索条件を作成する。
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = destSearchBar.text
+        
+        //検索範囲はマップビューと同じにする。
+        request.region = conveniMapView.region
+        
+        //ローカル検索を実行する。
+        let localSearch:MKLocalSearch = MKLocalSearch(request: request)
+        localSearch.start(completionHandler: {(result, error) in
+            
+            for placemark in (result?.mapItems)! {
+                if(error == nil) {
+                    
+                    //検索された場所にピンを刺す。
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2DMake(
+                        placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
+                    annotation.title = placemark.placemark.name
+                    annotation.subtitle = placemark.placemark.title
+                    self.conveniMapView.addAnnotation(annotation)
+                    
+                } else {
+                    //エラー
+                    print(error)
+                }
+            }
+        })
+    }
 }
 
 

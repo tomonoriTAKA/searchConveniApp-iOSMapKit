@@ -11,5 +11,6 @@ import MapKit
 
 class conveniMKPointoAnnotation: MKPointAnnotation {
     //ピンの色
-    var pinColor:UIColor = UIColor.red
+    var pinColor:UIColor = UIColor.yellow
+    
 }
