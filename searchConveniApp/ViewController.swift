@@ -146,17 +146,27 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
      */
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if annotation === mapView.userLocation { // 現在地を示すアノテーションの場合はデフォルトのまま
+        if annotation === mapView.userLocation {
+            // 現在地を示すアノテーションの場合はデフォルトのまま
             return nil
         } else {
             let identifier = "annotation"
-            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) { // 再利用できる場合はそのまま返す
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+                // 再利用できる場合はそのまま返す
+            
                 return annotationView
             } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
-                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                let myPinIdentifier = "PinAnnotationIdentifier"
+                //アノテーションビュー生成
+                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
                 annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
+                
+                //コールアウトの表示
+                annotationView.canShowCallout = true
                 return annotationView
             }
+            
+            
         }
         //        let myPinIdentifier = "PinAnnotationIdentifier"
         //
@@ -278,6 +288,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         //逆ジオコーディングで座標から国名、住所、名称、郵便番号等を取得。
         myGeocorder.reverseGeocodeLocation(myLocation, completionHandler: { (placemarks, error) -> Void in
             
+            
             for placemark in placemarks! {
                 
                 print("Name: \(placemark.name)")
@@ -293,11 +304,22 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 // pinのタイトルとサブタイトルを国名と土地名称に変更する.
                 
                 
-                //「?」でnilを許容…oceanとかがnilになりやすいので。
-                self.myPin?.title = "\(placemark.country!)"
-                self.myPin?.subtitle = "\(placemark.name!)"
+                self.myPin.subtitle? = "\(placemark.name!)"
+
+                //oceanにピンを立てるとcountryがnilになるので
+                //countryがnilかどうかで場合分け
+                if placemark.country != nil{
+                    
+                    self.myPin.title? = "\(placemark.country!)"
+                    self.userLocation.text? = "\(placemark.country!),\(placemark.name!)"
+                    
+                }else{
+                    self.myPin.title? = "Ocean"
+                    self.userLocation.text? = "\(placemark.name!)"
+
+
+                }
                 
-                self.userLocation.text = "\(placemark.country!),\(placemark.name!)"
             }
         })
         
