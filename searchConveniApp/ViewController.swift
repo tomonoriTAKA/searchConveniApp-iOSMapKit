@@ -148,7 +148,13 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         if annotation === mapView.userLocation {
             // 現在地を示すアノテーションの場合はデフォルトのまま
+            
+                //現在地のタイトルをnilにすることでコールアウトを非表示にする
+                (annotation as? MKUserLocation)?.title = nil
+            
             return nil
+            
+            
         } else {
             let identifier = "annotation"
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
@@ -158,11 +164,18 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
                 let myPinIdentifier = "PinAnnotationIdentifier"
                 //アノテーションビュー生成
-                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
-                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
+                let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
+//                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
                 
                 //コールアウトの表示
                 annotationView.canShowCallout = true
+                
+                //ピンの色を指定
+                annotationView.pinTintColor = UIColor.green
+                
+                //ピンが降ってくるアニメーションをつける
+                annotationView.animatesDrop = true
+                
                 return annotationView
             }
             
@@ -364,7 +377,9 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     }
     
     
-    //検索ボタン押下時の呼び出しメソッド
+    /*
+     * 検索ボタン押下時の呼び出しメソッド
+     */
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         //すべてのピンを削除
@@ -397,11 +412,12 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                     
                 } else {
                     //エラー
-                    print(error)
+                    print(error!)
                 }
             }
         })
     }
+    
 }
 
 
