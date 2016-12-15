@@ -399,24 +399,66 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         let localSearch:MKLocalSearch = MKLocalSearch(request: request)
         localSearch.start(completionHandler: {(result, error) in
             
-            for placemark in (result?.mapItems)! {
-                if(error == nil) {
+            //検索結果がnilじゃないとき（nilだとfor...inできない）
+            if result?.mapItems != nil{
+                
+                for placemark in (result?.mapItems)! {
                     
-                    //検索された場所にピンを刺す。
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2DMake(
-                        placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
-                    annotation.title = placemark.placemark.name
-                    annotation.subtitle = placemark.placemark.title
-                    self.conveniMapView.addAnnotation(annotation)
-                    
-                } else {
-                    //エラー
-                    print(error!)
+                    //エラーなし
+                    if(error == nil) {
+                        
+                        //検索された場所にピンを刺す。
+                        
+                        //ピン生成
+                        let annotation = MKPointAnnotation()
+                        
+                        //ピンに座標を入れる
+                        annotation.coordinate = CLLocationCoordinate2DMake(
+                            placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
+                        
+                        //タイトル、サブタイトルをつける
+                        annotation.title = placemark.placemark.name
+                        annotation.subtitle = placemark.placemark.title
+                        
+                        //ピンを刺す
+                        self.conveniMapView.addAnnotation(annotation)
+            
+                        
+                        
+                        
+                    } else {
+                        
+                        
+                        print(placemark.placemark.name!)
+                        print(placemark.placemark.title!)
+                        
+                        //エラー
+                        print("error!")
+                    }
                 }
+            }else{
+                
+                //検索結果がnilのとき検索失敗のアラートを出す
+                //アラートコントローラー生成
+                let searchAlert:UIAlertController = UIAlertController(
+                    title:"検索できませんでした", message:"別の言葉で試してみてください", preferredStyle:.alert)
+                
+                //アラートのアクションを定義
+                let OkAction:UIAlertAction = UIAlertAction(title: "OK", style: .default){action in
+                    
+                    print("action OK")
+                }
+                
+                //アラートコントローラーにアクションを追加
+                searchAlert.addAction(OkAction)
+                
+                //アラートを表示
+                self.present(searchAlert,animated: true, completion: nil)
+                
             }
         })
     }
+    
     
 }
 
