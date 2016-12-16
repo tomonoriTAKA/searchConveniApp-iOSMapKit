@@ -149,8 +149,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         if annotation === mapView.userLocation {
             // 現在地を示すアノテーションの場合はデフォルトのまま
             
-                //現在地のタイトルをnilにすることでコールアウトを非表示にする
-                (annotation as? MKUserLocation)?.title = nil
+            //現在地のタイトルをnilにすることでコールアウトを非表示にする
+            (annotation as? MKUserLocation)?.title = nil
             
             return nil
             
@@ -159,13 +159,13 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             let identifier = "annotation"
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
                 // 再利用できる場合はそのまま返す
-            
+                
                 return annotationView
             } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
                 let myPinIdentifier = "PinAnnotationIdentifier"
                 //アノテーションビュー生成
                 let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
-//                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
+                //                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
                 
                 //コールアウトの表示
                 annotationView.canShowCallout = true
@@ -196,7 +196,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         //
         //        // annotationを設定.
         //        myPinView.annotation = annotation
-        //        
+        //
         //        return myPinView
         
     }
@@ -318,7 +318,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 
                 
                 self.myPin.subtitle? = "\(placemark.name!)"
-
+                
                 //oceanにピンを立てるとcountryがnilになるので
                 //countryがnilかどうかで場合分け
                 if placemark.country != nil{
@@ -329,8 +329,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 }else{
                     self.myPin.title? = "Ocean"
                     self.userLocation.text? = "\(placemark.name!)"
-
-
+                    
+                    
                 }
                 
             }
@@ -422,7 +422,11 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         
                         //ピンを刺す
                         self.conveniMapView.addAnnotation(annotation)
-            
+                        
+                        //検索が終了したアラートを出す
+                        let title = "検索が完了しました"
+                        let message = "OKを押して続けてください"
+                        self.searhAlert(title: title, message: message)
                         
                         
                         
@@ -439,26 +443,41 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             }else{
                 
                 //検索結果がnilのとき検索失敗のアラートを出す
-                //アラートコントローラー生成
-                let searchAlert:UIAlertController = UIAlertController(
-                    title:"検索できませんでした", message:"別の言葉で試してみてください", preferredStyle:.alert)
+                let title = "検索できませんでした"
+                let message = "別の言葉で試してみてください"
+                self.searhAlert(title: title, message: message)
                 
-                //アラートのアクションを定義
-                let OkAction:UIAlertAction = UIAlertAction(title: "OK", style: .default){action in
-                    
-                    print("action OK")
-                }
+                print("action OK")
                 
-                //アラートコントローラーにアクションを追加
-                searchAlert.addAction(OkAction)
-                
-                //アラートを表示
-                self.present(searchAlert,animated: true, completion: nil)
-                
+            
+            
             }
         })
     }
     
+    //OKで確認をとるだけのアラートを出すメソッド
+    
+    func searhAlert(title:String, message:String ) {
+        
+        //アラートコントローラー生成
+        let searchAlertController:UIAlertController = UIAlertController(
+            title:title, message:message , preferredStyle:.alert)
+        
+        //アラートのアクションを定義
+        let OkAction:UIAlertAction = UIAlertAction(title: "OK", style: .default){action in
+            
+            print("action OK")
+        }
+        
+        //アラートコントローラーにアクションを追加
+        searchAlertController.addAction(OkAction)
+        
+        //アラートを表示
+        self.present(searchAlertController,animated: true, completion: nil)
+
+        
+        
+    }
     
 }
 
