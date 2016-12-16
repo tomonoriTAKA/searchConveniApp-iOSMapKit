@@ -1,5 +1,7 @@
 # searchConveniApp-iOSMapKit
 
+Slack test<br>
+
 <ul>ロングタップでピンを任意の場所に刺す。</ul>
 <ul>ピンをタップすると現在地との経路とピンの情報を表示。</ul>
 <ul>ピンの情報のなかのiを押すとそのピンを削除できる。</ul>
