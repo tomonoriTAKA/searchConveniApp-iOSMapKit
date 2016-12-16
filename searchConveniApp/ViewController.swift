@@ -49,6 +49,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     //ユーザーの現在地に立てるピン
     var userPin: MKPointAnnotation!
     
+    var routeRenderer:MKPolylineRenderer?
+    
     
     
     override func viewDidLoad() {
@@ -478,6 +480,103 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         
     }
+    
+    
+    
+    
+    func getRoute()
+    {
+        // 現在地と目的地のMKPlacemarkを生成
+        
+        let userCoordinate = CLLocationCoordinate2DMake(userLatitude, userLongitude)
+        let destLocation = CLLocationCoordinate2DMake(pinLatitude, pinLongitude)
+        
+        let fromPlacemark = MKPlacemark(coordinate:userCoordinate, addressDictionary:nil)
+        let toPlacemark   = MKPlacemark(coordinate:destLocation, addressDictionary:nil)
+        
+        // MKPlacemark から MKMapItem を生成
+        let fromItem = MKMapItem(placemark:fromPlacemark)
+        let toItem   = MKMapItem(placemark:toPlacemark)
+        
+        // MKMapItem をセットして MKDirectionsRequest を生成
+        let request = MKDirectionsRequest()
+        
+        request.source = fromItem
+        request.destination = toItem
+        request.requestsAlternateRoutes = false // 単独の経路を検索
+        request.transportType = MKDirectionsTransportType.automobile
+        
+        let directions = MKDirections(request:request)
+        // 経路探索.
+        directions.calculate { (response, error) in
+            
+            // NSErrorを受け取ったか、ルートがない場合.
+            if error != nil || response!.routes.isEmpty {
+                return
+            }
+            
+            let route: MKRoute = response!.routes[0] as MKRoute
+            print("目的地まで \(Int(route.distance)/1000)km")
+            print("所要時間 \(Int(route.expectedTravelTime/60))分")
+            
+            // mapViewにルートを描画.
+            self.conveniMapView.add(route.polyline)
+        }    }
+
+    
+    // 地図の表示範囲を計算
+    func showUserAndDestinationOnMap()
+    {
+        // 現在地と目的地を含む矩形を計算
+        let maxLat:Double = fmax(userLatitude,  pinLatitude)
+        let maxLon:Double = fmax(userLongitude, pinLongitude)
+        let minLat:Double = fmin(userLatitude,  pinLatitude)
+        let minLon:Double = fmin(userLongitude, pinLongitude)
+        
+        // 地図表示するときの緯度、経度の幅を計算
+        let mapMargin:Double = 1.5;  // 経路が入る幅(1.0)＋余白(0.5)
+        let leastCoordSpan:Double = 0.005;    // 拡大表示したときの最大値
+        let span_x:Double = fmax(leastCoordSpan, fabs(maxLat - minLat) * mapMargin);
+        let span_y:Double = fmax(leastCoordSpan, fabs(maxLon - minLon) * mapMargin);
+        
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(span_x, span_y);
+        
+        // 現在地を目的地の中心を計算
+        let center:CLLocationCoordinate2D = CLLocationCoordinate2DMake((maxLat + minLat) / 2, (maxLon + minLon) / 2);
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(center, span);
+        
+        conveniMapView.setRegion(conveniMapView.regionThatFits(region), animated:true);
+    }
+    
+    // ルートの表示設定.
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let route: MKPolyline = overlay as! MKPolyline
+        let routeRenderer: MKPolylineRenderer = MKPolylineRenderer(polyline: route)
+        
+        // ルートの線の太さ.
+        routeRenderer.lineWidth = 4.0
+        
+        // ルートの線の色.
+        routeRenderer.strokeColor = UIColor.magenta
+        return routeRenderer
+    }
+    
+    //ピンがタップされたときに起こるイベント
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        // 描画済みの経路を削除
+        self.conveniMapView.removeOverlays(self.conveniMapView.overlays)
+        
+        //タップされたピンの座標を入れる
+        myPin = view.annotation as! MKPointAnnotation!
+        pinLatitude = myPin.coordinate.latitude
+        pinLongitude = myPin.coordinate.longitude
+        
+        //現在地からピンまでの経路を検索
+        self.getRoute()
+    }
+    
     
 }
 
