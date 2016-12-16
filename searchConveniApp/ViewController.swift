@@ -392,7 +392,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //検索条件を作成する。
         let request = MKLocalSearchRequest()
-        request.naturalLanguageQuery = destSearchBar.text
+        request.naturalLanguageQuery = destSearchBar.text! + " コンビニ"
         
         //検索範囲はマップビューと同じにする。
         request.region = conveniMapView.region
