@@ -5,6 +5,7 @@
 //  Created by 高橋知憲 on 2016/12/12.
 //  Copyright © 2016年 高橋知憲. All rights reserved.
 //
+
 import UIKit
 import MapKit
 import CoreLocation
@@ -22,9 +23,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     @IBOutlet weak var conveniMapView: MKMapView! = MKMapView() //マップ生成
     @IBOutlet weak var destSearchBar: UISearchBar! //検索バー
-    
     @IBOutlet weak var trackingButton: UIBarButtonItem! // トラッキングのボタン
-    
     @IBOutlet weak var userLocation: UITextField!
     
     
@@ -130,6 +129,9 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         // 座標を設定.
         myPin.coordinate = myCoordinate
         
+        // MARK: - 日本語の文字列はplistや別クラスで定義管理するとなお良い
+ 
+        
         // タイトルを設定.
         myPin.title = "国名"
         
@@ -158,6 +160,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             
         } else {
+    
             let identifier = "annotation"
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
                 // 再利用できる場合はそのまま返す
@@ -180,33 +183,18 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 
                 return annotationView
             }
-            
-            
         }
-        //        let myPinIdentifier = "PinAnnotationIdentifier"
-        //
-        //        // ピンを生成.
-        //        let myPinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
-        //
-        //        // アニメーションをつける.
-        //        myPinView.animatesDrop = true
-        //
-        //        // コールアウトを表示する.
-        //        myPinView.canShowCallout = true
-        //
-        //        myPinView.pinTintColor = UIColor.magenta
-        //
-        //        // annotationを設定.
-        //        myPinView.annotation = annotation
-        //
-        //        return myPinView
-        
     }
     
     /*
      * トラッキングボタンが押されたときのメソッド（トラッキングモード切り替え）
      */
     @IBAction func tapTrackingButton(_ sender: UIBarButtonItem) {
+        
+        // MARK: - ここのtrackingButton.image = UIImage(named: "trackingFollow")だけど共通化できひんかな？？？
+        // できれば別クラスで定義するとなお良い！
+        
+        
         switch conveniMapView.userTrackingMode{
         case .none:
             //noneからfollowへ
@@ -237,6 +225,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     //位置情報利用許可のステータスが変わった
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
         switch status{
         //ロケーションの更新を開始する
         case .authorizedAlways, .authorizedWhenInUse:
@@ -430,8 +419,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         let message = "OKを押して続けてください"
                         self.searhAlert(title: title, message: message)
                         
-                        
-                        
+        
                     } else {
                         
                         
@@ -459,6 +447,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     //OKで確認をとるだけのアラートを出すメソッド
     
+    // MARK: - UIAlertViewControllerをカスタムクラス作るとなお良い
     func searhAlert(title:String, message:String ) {
         
         //アラートコントローラー生成
@@ -476,16 +465,12 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //アラートを表示
         self.present(searchAlertController,animated: true, completion: nil)
-
-        
         
     }
     
     
-    
-    
-    func getRoute()
-    {
+    func getRoute(){
+        
         // 現在地と目的地のMKPlacemarkを生成
         
         let userCoordinate = CLLocationCoordinate2DMake(userLatitude, userLongitude)
@@ -524,9 +509,11 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         }    }
 
     
+    // MARK: - howUserAndDestinationOnMap()の計算ロジックもモデルクラスで処理するのもあり！
+    
     // 地図の表示範囲を計算
-    func showUserAndDestinationOnMap()
-    {
+    func showUserAndDestinationOnMap() {
+        
         // 現在地と目的地を含む矩形を計算
         let maxLat:Double = fmax(userLatitude,  pinLatitude)
         let maxLon:Double = fmax(userLongitude, pinLongitude)
