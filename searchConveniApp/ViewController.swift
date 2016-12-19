@@ -199,20 +199,27 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         case .none:
             //noneからfollowへ
             conveniMapView.setUserTrackingMode(.follow, animated: true)
+            
+            
             //トラッキングボタンの画像を変更する
-            trackingButton.image = UIImage(named: "trackingFollow")
+            let trackingButton = "trackingFollow"
+            self.changeTrackingImage(named: trackingButton)
             
         case .follow:
             //followからfollowWithHeadingへ
             conveniMapView.setUserTrackingMode(.followWithHeading, animated: true)
+            
             //トラッキングボタンの画像を変更する
-            trackingButton.image = UIImage(named: "trackingHeading")
+            let trackingButton = "trackingHeading"
+            self.changeTrackingImage(named: trackingButton)
             
         case .followWithHeading:
             //followWithHeadingからnoneへ
             conveniMapView.setUserTrackingMode(.none, animated: true)
+            
             //トラッキングボタンの画像を変更する
-            trackingButton.image = UIImage(named: "trackingNone")
+            let trackingButton = "trackingNone"
+            self.changeTrackingImage(named: trackingButton)
         }
     }
     
@@ -564,6 +571,10 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         self.getRoute()
     }
     
+    
+    func changeTrackingImage (named: String){
+        trackingButton.image = UIImage(named: named )
+    }
     
 }
 
