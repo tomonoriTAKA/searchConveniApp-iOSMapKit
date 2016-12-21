@@ -50,6 +50,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     var routeRenderer:MKPolylineRenderer?
     
+    //別ファイルのjaPropertiesクラスのインスタンス化
+    let jaProperty = jaProperties()
     
     
     override func viewDidLoad() {
@@ -99,6 +101,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         // MapViewにUIGestureRecognizerを追加.
         conveniMapView.addGestureRecognizer(myLongPress)
         
+        
     }
     
     
@@ -133,7 +136,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
  
         
         // タイトルを設定.
-        myPin.title = "国名"
+        myPin.title = jaProperty.countryName //jaPropertiesクラスから"国名"を入力
+        print(myPin.title!)
         
         // サブタイトルを設定.（緯度経度を表示）
         myPin.subtitle = "latitude: \(pinLatitude!) , longitude: \(pinLongitude!)"
@@ -202,7 +206,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             
             //トラッキングボタンの画像を変更する
-            let trackingButton = "trackingFollow"
+            let trackingButton = jaProperty.trackingFollow
             self.changeTrackingImage(named: trackingButton)
             
         case .follow:
@@ -210,7 +214,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             conveniMapView.setUserTrackingMode(.followWithHeading, animated: true)
             
             //トラッキングボタンの画像を変更する
-            let trackingButton = "trackingHeading"
+            let trackingButton = jaProperty.trackingHeading
             self.changeTrackingImage(named: trackingButton)
             
         case .followWithHeading:
@@ -218,7 +222,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             conveniMapView.setUserTrackingMode(.none, animated: true)
             
             //トラッキングボタンの画像を変更する
-            let trackingButton = "trackingNone"
+            let trackingButton = jaProperty.trackingNone
             self.changeTrackingImage(named: trackingButton)
         }
     }
@@ -227,7 +231,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
      * トラッキングが自動解除されたとき
      */
     @objc(mapView:didChangeUserTrackingMode:animated:) func mapView (_ mapView :MKMapView, didChange mode:MKUserTrackingMode, animated:Bool){
-        trackingButton.image = UIImage(named: "trackingNone")
+        trackingButton.image = UIImage(named: jaProperty.trackingNone)
     }
     
     //位置情報利用許可のステータスが変わった
@@ -250,7 +254,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             conveniMapView.setUserTrackingMode(.none, animated: true)
             
             // トラッキングボタンを変更する
-            trackingButton.image = UIImage(named: "trackingNone")
+            trackingButton.image = UIImage(named: jaProperty.trackingNone)
             
             //トラッキングボタンを無効にする
             trackingButton.isEnabled = false
@@ -269,7 +273,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         userPin = MKPointAnnotation()
         userPin.coordinate = userLocation
         
-        conveniMapView.addAnnotation(userPin)
+//        conveniMapView.addAnnotation(userPin)
         
         // 取得した緯度・経度をLogに表示
         NSLog("latitude: \(userLatitude) , longitude: \(userLongitude)")
@@ -424,7 +428,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         //検索が終了したアラートを出す
                         let title = "検索が完了しました"
                         let message = "OKを押して続けてください"
-                        self.searhAlert(title: title, message: message)
+                        self.searchAlert(title: title, message: message)
                         
         
                     } else {
@@ -442,7 +446,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 //検索結果がnilのとき検索失敗のアラートを出す
                 let title = "検索できませんでした"
                 let message = "別の言葉で試してみてください"
-                self.searhAlert(title: title, message: message)
+                self.searchAlert(title: title, message: message)
                 
                 print("action OK")
                 
@@ -454,8 +458,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     //OKで確認をとるだけのアラートを出すメソッド
     
-    // MARK: - UIAlertViewControllerをカスタムクラス作るとなお良い
-    func searhAlert(title:String, message:String ) {
+//    // MARK: - UIAlertViewControllerをカスタムクラス作るとなお良い
+    func searchAlert(title:String, message:String ) {
         
         //アラートコントローラー生成
         let searchAlertController:UIAlertController = UIAlertController(
