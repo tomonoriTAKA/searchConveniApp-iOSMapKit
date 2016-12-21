@@ -20,6 +20,7 @@
 		D2A950BB1DFE92FA00078E49 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */; };
 		D2A950BD1DFE930400078E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BC1DFE930400078E49 /* MapKit.framework */; };
 		D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */; };
+		D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2A950BC1DFE930400078E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = conveniMKPointoAnnotation.swift; sourceTree = "<group>"; };
+		D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alertHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				D2A950BE1DFE93C300078E49 /* image */,
 				D2A950A71DFE92D900078E49 /* AppDelegate.swift */,
 				D2A950A91DFE92D900078E49 /* ViewController.swift */,
+				D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */,
 				D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */,
 				D234996B1E077CB5009F5784 /* jaProperties.swift */,
 				D2A950AB1DFE92D900078E49 /* Main.storyboard */,
@@ -186,6 +189,7 @@
 				D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */,
 				D234996C1E077CB5009F5784 /* jaProperties.swift in Sources */,
 				D2A950AA1DFE92D900078E49 /* ViewController.swift in Sources */,
+				D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */,
 				D2A950A81DFE92D900078E49 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

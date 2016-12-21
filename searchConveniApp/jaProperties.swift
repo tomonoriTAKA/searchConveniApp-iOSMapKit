@@ -12,6 +12,6 @@ class jaProperties{
     let trackingFollow = "trackingFollow"
     let trackingNone = "trackingNone"
     let trackingHeading = "trackingHeading"
-    
-    
+    let searchWord = ""
+    let reuseAnnotationID = "annotation"
 }

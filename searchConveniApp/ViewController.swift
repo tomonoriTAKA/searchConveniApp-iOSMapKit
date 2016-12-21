@@ -27,6 +27,14 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     @IBOutlet weak var userLocation: UITextField!
     
     
+    
+    /*AlertHelperクラスを読み込む*/
+    
+    var showAlert = AlertHelper()
+    
+    
+    
+    
     // 現在地の位置情報の取得にはCLLocationManagerを使用
     var lm: CLLocationManager!
     
@@ -50,7 +58,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     var routeRenderer:MKPolylineRenderer?
     
-    //別ファイルのjaPropertiesクラスのインスタンス化
+    //別ファイルのjaPropertiesクラスを読み込む
     let jaProperty = jaProperties()
     
     
@@ -89,7 +97,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         
         // GPSの使用を開始する
-        lm.startUpdatingLocation()
+//        lm.startUpdatingLocation()
         
         //スケールを表示する
         conveniMapView.showsScale = true
@@ -147,6 +155,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //ピンの情報を取得
         self.reverseGeocord(latitude: pinLatitude, longitude: pinLongitude, myPin: myPin)
+        
     }
     
     /*
@@ -165,7 +174,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
         } else {
     
-            let identifier = "annotation"
+            let identifier = jaProperty.reuseAnnotationID
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
                 // 再利用できる場合はそのまま返す
                 
@@ -273,7 +282,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         userPin = MKPointAnnotation()
         userPin.coordinate = userLocation
         
-//        conveniMapView.addAnnotation(userPin)
+        conveniMapView.addAnnotation(userPin)
         
         // 取得した緯度・経度をLogに表示
         NSLog("latitude: \(userLatitude) , longitude: \(userLongitude)")
@@ -392,7 +401,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //検索条件を作成する。
         let request = MKLocalSearchRequest()
-        request.naturalLanguageQuery = destSearchBar.text! + " コンビニ"
+        request.naturalLanguageQuery = destSearchBar.text! + jaProperty.searchWord //<- searchWordに必ず検索させたい言葉を入れる
         
         //検索範囲はマップビューと同じにする。
         request.region = conveniMapView.region
@@ -428,8 +437,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         //検索が終了したアラートを出す
                         let title = "検索が完了しました"
                         let message = "OKを押して続けてください"
-                        self.searchAlert(title: title, message: message)
-                        
+                        self.showAlert.showAlert(fromController:self, title:title, message:message)
         
                     } else {
                         
@@ -446,39 +454,12 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 //検索結果がnilのとき検索失敗のアラートを出す
                 let title = "検索できませんでした"
                 let message = "別の言葉で試してみてください"
-                self.searchAlert(title: title, message: message)
-                
-                print("action OK")
-                
+                self.showAlert.showAlert(fromController:self, title:title, message:message)                
             
             
             }
         })
     }
-    
-    //OKで確認をとるだけのアラートを出すメソッド
-    
-//    // MARK: - UIAlertViewControllerをカスタムクラス作るとなお良い
-    func searchAlert(title:String, message:String ) {
-        
-        //アラートコントローラー生成
-        let searchAlertController:UIAlertController = UIAlertController(
-            title:title, message:message , preferredStyle:.alert)
-        
-        //アラートのアクションを定義
-        let OkAction:UIAlertAction = UIAlertAction(title: "OK", style: .default){action in
-            
-            print("action OK")
-        }
-        
-        //アラートコントローラーにアクションを追加
-        searchAlertController.addAction(OkAction)
-        
-        //アラートを表示
-        self.present(searchAlertController,animated: true, completion: nil)
-        
-    }
-    
     
     func getRoute(){
         
