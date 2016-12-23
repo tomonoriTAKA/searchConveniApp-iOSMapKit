@@ -359,10 +359,21 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
      * コールアウトにボタンを表示するメソッド
      */
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        
+        //右ボタン（ピンの削除ボタン）をアノテーションビューに追加する。
+        let deletePinButton = UIButton()
+        deletePinButton.frame = CGRect(x:0, y:0, width:40, height:30)//ボタンサイズ
+        deletePinButton.setTitle("削除", for: .normal)//タイトル
+        deletePinButton.backgroundColor = UIColor.red//背景色
+        deletePinButton.setTitleColor(UIColor.white, for:.normal)//タイトル色
+        
         for view in views {
-            view.rightCalloutAccessoryView = UIButton(type: UIButtonType.detailDisclosure)
+            view.rightCalloutAccessoryView = deletePinButton
         }
     }
+    
+    
+    
     
     
     /*
@@ -519,7 +530,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         routeRenderer.lineWidth = 3.0
         
         // ルートの線の色.
-        routeRenderer.strokeColor = UIColor.magenta
+        routeRenderer.strokeColor = UIColor.blue
         return routeRenderer
     }
     
