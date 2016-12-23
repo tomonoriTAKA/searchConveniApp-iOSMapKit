@@ -19,7 +19,7 @@
 		D2A950B21DFE92D900078E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A950B01DFE92D900078E49 /* LaunchScreen.storyboard */; };
 		D2A950BB1DFE92FA00078E49 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */; };
 		D2A950BD1DFE930400078E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BC1DFE930400078E49 /* MapKit.framework */; };
-		D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */; };
+		D2A950C61DFE950800078E49 /* userMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */; };
 		D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */; };
 		D2EEC89B1E0CBD82001D4BF2 /* userAndDestinationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 		D2A950B31DFE92D900078E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2A950BC1DFE930400078E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = conveniMKPointoAnnotation.swift; sourceTree = "<group>"; };
+		D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userMKPointAnnotation.swift; sourceTree = "<group>"; };
 		D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alertHelper.swift; sourceTree = "<group>"; };
 		D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userAndDestinationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +82,7 @@
 				D2A950A91DFE92D900078E49 /* ViewController.swift */,
 				D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */,
 				D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */,
-				D2A950C51DFE950800078E49 /* conveniMKPointoAnnotation.swift */,
+				D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */,
 				D234996B1E077CB5009F5784 /* jaProperties.swift */,
 				D2A950AB1DFE92D900078E49 /* Main.storyboard */,
 				D2A950AE1DFE92D900078E49 /* Assets.xcassets */,
@@ -189,7 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2A950C61DFE950800078E49 /* conveniMKPointoAnnotation.swift in Sources */,
+				D2A950C61DFE950800078E49 /* userMKPointAnnotation.swift in Sources */,
 				D234996C1E077CB5009F5784 /* jaProperties.swift in Sources */,
 				D2A950AA1DFE92D900078E49 /* ViewController.swift in Sources */,
 				D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */,

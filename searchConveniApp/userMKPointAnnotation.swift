@@ -1,5 +1,5 @@
 //
-//  conveniMKPointoAnnotation.swift
+//  conveniMKPointAnnotation.swift
 //  seekConveniApp
 //
 //  Created by 高橋知憲 on 2016/12/12.
@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class conveniMKPointoAnnotation: MKPointAnnotation {
+class userMKPointAnnotation: MKPointAnnotation {
     //ピンの色
     var pinColor:UIColor = UIColor.magenta
     

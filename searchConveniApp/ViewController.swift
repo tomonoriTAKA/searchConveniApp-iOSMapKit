@@ -27,6 +27,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     @IBOutlet weak var userLocation: UITextField!
     
     
+    let userAnnotation = userMKPointAnnotation()
+
     
     /*AlertHelperクラスを読み込む*/
     var showAlert = AlertHelper()
@@ -68,6 +70,9 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
         
         // フィールドの初期化
         lm = CLLocationManager()
@@ -186,14 +191,14 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             } else { // 再利用できるアノテーションが無い場合（初回など）は生成する
                 let myPinIdentifier = "PinAnnotationIdentifier"
                 //アノテーションビュー生成
-                let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: myPinIdentifier)
+                let annotationView = MKPinAnnotationView(annotation: userAnnotation, reuseIdentifier: myPinIdentifier)
                 //                annotationView.image = UIImage(named: "pinFIlled") // ここで好きな画像を設定します
                 
                 //コールアウトの表示
                 annotationView.canShowCallout = true
                 
                 //ピンの色を指定
-                annotationView.pinTintColor = UIColor.magenta
+                annotationView.pinTintColor = userAnnotation.pinColor
             
                 
                 //ピンが降ってくるアニメーションをつける
@@ -362,7 +367,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //右ボタン（ピンの削除ボタン）をアノテーションビューに追加する。
         let deletePinButton = UIButton()
-        deletePinButton.frame = CGRect(x:0, y:0, width:40, height:30)//ボタンサイズ
+        deletePinButton.frame = CGRect(x:0, y:0, width:35, height:35)//ボタンサイズ
         deletePinButton.setTitle("削除", for: .normal)//タイトル
         deletePinButton.backgroundColor = UIColor.red//背景色
         deletePinButton.setTitleColor(UIColor.white, for:.normal)//タイトル色
