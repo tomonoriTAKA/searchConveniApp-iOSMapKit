@@ -29,9 +29,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     
     /*AlertHelperクラスを読み込む*/
-    
     var showAlert = AlertHelper()
-    
     
     
     
@@ -48,6 +46,12 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     var pinLongitude: CLLocationDegrees!
     
     //立てるピンのインスタンス
+    
+    //検索時に立てるピン
+    var searchedPin: MKPointAnnotation?
+    
+    //検索後の地図表示範囲を指定するクラスを読み込む
+    var showRegion = userAndDestinationModel()
     
     //長押しで立てるピン
     var myPin: MKPointAnnotation!
@@ -189,7 +193,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 annotationView.canShowCallout = true
                 
                 //ピンの色を指定
-                annotationView.pinTintColor = UIColor.green
+                annotationView.pinTintColor = UIColor.magenta
+            
                 
                 //ピンが降ってくるアニメーションをつける
                 annotationView.animatesDrop = true
@@ -401,7 +406,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //検索条件を作成する。
         let request = MKLocalSearchRequest()
-        request.naturalLanguageQuery = destSearchBar.text! + jaProperty.searchWord //<- searchWordに必ず検索させたい言葉を入れる
+        request.naturalLanguageQuery = destSearchBar.text! //+ jaProperty.searchWord //<- searchWordに必ず検索させたい言葉を入れる
         
         //検索範囲はマップビューと同じにする。
         request.region = conveniMapView.region
@@ -421,24 +426,28 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         //検索された場所にピンを刺す。
                         
                         //ピン生成
-                        let annotation = MKPointAnnotation()
+                         self.searchedPin = MKPointAnnotation()
                         
                         //ピンに座標を入れる
-                        annotation.coordinate = CLLocationCoordinate2DMake(
+                        self.searchedPin?.coordinate = CLLocationCoordinate2DMake(
                             placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
                         
                         //タイトル、サブタイトルをつける
-                        annotation.title = placemark.placemark.name
-                        annotation.subtitle = placemark.placemark.title
+                        self.searchedPin?.title = placemark.placemark.name
+                        self.searchedPin?.subtitle = placemark.placemark.title
                         
                         //ピンを刺す
-                        self.conveniMapView.addAnnotation(annotation)
+                        self.conveniMapView.addAnnotation(self.searchedPin!)
+                        
+                        //現在地と検索結果のピンが収まるように地図を表示する
+                        self.showRegion.showUserAndDestinationOnMap(
+                            userLatitude: self.userLatitude, userLongitude: self.userLongitude, annotation: self.searchedPin, mapView: self.conveniMapView)
                         
                         //検索が終了したアラートを出す
                         let title = "検索が完了しました"
                         let message = "OKを押して続けてください"
                         self.showAlert.showAlert(fromController:self, title:title, message:message)
-        
+                    
                     } else {
                         
                         
@@ -500,33 +509,6 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             self.conveniMapView.add(route.polyline)
         }    }
 
-    
-    // MARK: - howUserAndDestinationOnMap()の計算ロジックもモデルクラスで処理するのもあり！
-    
-    // 地図の表示範囲を計算
-    func showUserAndDestinationOnMap() {
-        
-        // 現在地と目的地を含む矩形を計算
-        let maxLat:Double = fmax(userLatitude,  pinLatitude)
-        let maxLon:Double = fmax(userLongitude, pinLongitude)
-        let minLat:Double = fmin(userLatitude,  pinLatitude)
-        let minLon:Double = fmin(userLongitude, pinLongitude)
-        
-        // 地図表示するときの緯度、経度の幅を計算
-        let mapMargin:Double = 1.5;  // 経路が入る幅(1.0)＋余白(0.5)
-        let leastCoordSpan:Double = 0.005;    // 拡大表示したときの最大値
-        let span_x:Double = fmax(leastCoordSpan, fabs(maxLat - minLat) * mapMargin);
-        let span_y:Double = fmax(leastCoordSpan, fabs(maxLon - minLon) * mapMargin);
-        
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(span_x, span_y);
-        
-        // 現在地を目的地の中心を計算
-        let center:CLLocationCoordinate2D = CLLocationCoordinate2DMake((maxLat + minLat) / 2, (maxLon + minLon) / 2);
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(center, span);
-        
-        conveniMapView.setRegion(conveniMapView.regionThatFits(region), animated:true);
-    }
-    
     // ルートの表示設定.
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
@@ -534,12 +516,14 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         let routeRenderer: MKPolylineRenderer = MKPolylineRenderer(polyline: route)
         
         // ルートの線の太さ.
-        routeRenderer.lineWidth = 4.0
+        routeRenderer.lineWidth = 3.0
         
         // ルートの線の色.
         routeRenderer.strokeColor = UIColor.magenta
         return routeRenderer
     }
+    
+    
     
     //ピンがタップされたときに起こるイベント
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -557,6 +541,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     }
     
     
+    
+    //トラッキングのボタン画像を変えるメソッド
     func changeTrackingImage (named: String){
         trackingButton.image = UIImage(named: named )
     }

@@ -11,7 +11,7 @@ import UIKit
 
 class AlertHelper {
     func showAlert(fromController controller: UIViewController ,title:String, message: String) {
-        var searchAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let searchAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         //アラートのアクションを定義
         let OkAction:UIAlertAction = UIAlertAction(title: "OK", style: .default){action in
