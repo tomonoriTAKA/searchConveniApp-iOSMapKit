@@ -289,15 +289,16 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         userLongitude = newLocation!.coordinate.longitude
         
         let userLocation:CLLocationCoordinate2D  = CLLocationCoordinate2DMake(userLatitude,userLongitude)
-        userPin = MKPointAnnotation()
-        userPin.coordinate = userLocation
         
+        userPin = MKPointAnnotation()
+        
+        userPin.coordinate = userLocation
         conveniMapView.addAnnotation(userPin)
         
         // 取得した緯度・経度をLogに表示
         NSLog("latitude: \(userLatitude) , longitude: \(userLongitude)")
         // GPSの使用を停止する．停止しない限りGPSは実行され，指定間隔で更新され続ける．
-        // lm.stopUpdatingLocation()
+        lm.stopUpdatingLocation()
     }
     
     /* 位置情報取得失敗時に実行される関数 */
@@ -367,7 +368,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         
         //右ボタン（ピンの削除ボタン）をアノテーションビューに追加する。
         let deletePinButton = UIButton()
-        deletePinButton.frame = CGRect(x:0, y:0, width:35, height:35)//ボタンサイズ
+        deletePinButton.frame = CGRect(x:0, y:0, width:40, height:40)//ボタンサイズ
         deletePinButton.setTitle("削除", for: .normal)//タイトル
         deletePinButton.backgroundColor = UIColor.red//背景色
         deletePinButton.setTitleColor(UIColor.white, for:.normal)//タイトル色
