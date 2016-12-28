@@ -299,6 +299,11 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         NSLog("latitude: \(userLatitude) , longitude: \(userLongitude)")
         // GPSの使用を停止する．停止しない限りGPSは実行され，指定間隔で更新され続ける．
         lm.stopUpdatingLocation()
+        
+        /*  didUpdateLocationsのコールバックが複数回返ってくるので
+            delegateに対してnilを入れることで2度目のコールバックが呼ばれる事をブロックしました。*/
+        self.lm.delegate = nil
+
     }
     
     /* 位置情報取得失敗時に実行される関数 */
