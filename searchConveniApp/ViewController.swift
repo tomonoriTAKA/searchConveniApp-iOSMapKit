@@ -26,8 +26,11 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     @IBOutlet weak var trackingButton: UIBarButtonItem! // トラッキングのボタン
     @IBOutlet weak var userLocation: UITextField!
     
-    
+    //userMKPointAnnotationクラスのファイルを読み込む
     let userAnnotation = userMKPointAnnotation()
+    
+    //経路情報を入れるもの
+    var route:MKRoute!
 
     
     /*AlertHelperクラスを読み込む*/
@@ -378,9 +381,15 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         deletePinButton.backgroundColor = UIColor.red//背景色
         deletePinButton.setTitleColor(UIColor.white, for:.normal)//タイトル色
         
+        let detailButton = UIButton(type: UIButtonType.detailDisclosure)
+        
         for view in views {
             view.rightCalloutAccessoryView = deletePinButton
+            view.leftCalloutAccessoryView = detailButton
         }
+        
+        
+        
     }
     
     
@@ -392,26 +401,32 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
      */
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        
-        // UIAlertControllerを作成する.
-        let myAlert: UIAlertController = UIAlertController(title: "ピンの削除", message: "Delete this pin?", preferredStyle: .alert)
-        
-        // OKが押されたらピンを削除するアラートアクションを作成.
-        let myOkAction = UIAlertAction(title: "OK", style: .default) { action in
-            mapView.removeAnnotation(view.annotation!)
+        //コールアウトの右側のボタン（削除ボタン）が押されたとき
+        if(control == view.rightCalloutAccessoryView){
+            
+            // UIAlertControllerを作成する.
+            let myAlert: UIAlertController = UIAlertController(title: jaProperty.deletePinTitle, message: jaProperty.deletePinMsg, preferredStyle: .alert)
+            
+            // OKが押されたらピンを削除するアラートアクションを作成.
+            let myOkAction = UIAlertAction(title: "OK", style: .default) { action in
+                mapView.removeAnnotation(view.annotation!)
+            }
+            
+            //ピンの削除をキャンセルするアラートアクションを作成.
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            
+            // OK,cancelのActionを追加する.
+            myAlert.addAction(myOkAction)
+            myAlert.addAction(cancelAction)
+            
+            // UIAlertを発動する.
+            present(myAlert, animated: true, completion: nil)
+        }else{
+            //ポップオーバーの画面に遷移させて詳細情報を表示したい…
+            print(route.distance/1000.0)
+            print(route.expectedTravelTime/60)
         }
-        
-        //ピンの削除をキャンセルするアラートアクションを作成.
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        
-        // OK,cancelのActionを追加する.
-        myAlert.addAction(myOkAction)
-        myAlert.addAction(cancelAction)
-        
-        // UIAlertを発動する.
-        present(myAlert, animated: true, completion: nil)
-        
     }
     
     
@@ -512,7 +527,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         request.source = fromItem
         request.destination = toItem
         request.requestsAlternateRoutes = false // 単独の経路を検索
-        request.transportType = MKDirectionsTransportType.automobile
+        request.transportType = MKDirectionsTransportType.automobile //自動車で移動するとき
         
         let directions = MKDirections(request:request)
         // 経路探索.
@@ -523,19 +538,19 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                 return
             }
             
-            let route: MKRoute = response!.routes[0] as MKRoute
-            print("目的地まで \(Int(route.distance)/1000)km")
-            print("所要時間 \(Int(route.expectedTravelTime/60))分")
+            self.route = response!.routes[0] as MKRoute
+            print("目的地まで \(Double(self.route.distance)/1000.0)km")
+            print("所要時間(自動車で) \(Int(self.route.expectedTravelTime/60))分")
             
             // mapViewにルートを描画.
-            self.conveniMapView.add(route.polyline)
+            self.conveniMapView.add(self.route.polyline)
         }    }
 
     // ルートの表示設定.
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
-        let route: MKPolyline = overlay as! MKPolyline
-        let routeRenderer: MKPolylineRenderer = MKPolylineRenderer(polyline: route)
+        let routeOrbital: MKPolyline = overlay as! MKPolyline
+        let routeRenderer: MKPolylineRenderer = MKPolylineRenderer(polyline: routeOrbital)
         
         // ルートの線の太さ.
         routeRenderer.lineWidth = 3.0

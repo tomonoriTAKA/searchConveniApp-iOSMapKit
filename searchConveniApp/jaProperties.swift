@@ -14,4 +14,6 @@ class jaProperties{
     let trackingHeading = "trackingHeading"
     let searchWord = ""
     let reuseAnnotationID = "annotation"
+    let deletePinTitle = "ピンの削除"
+    let deletePinMsg = "Delete this pin ?"
 }
