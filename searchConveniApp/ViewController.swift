@@ -19,7 +19,7 @@ extension MKPlacemark {
 
 
 // CLLocationManagerDelegateを継承しなければならない
-class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDelegate,MKMapViewDelegate {
+class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDelegate,MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var conveniMapView: MKMapView! = MKMapView() //マップ生成
     @IBOutlet weak var destSearchBar: UISearchBar! //検索バー
@@ -410,6 +410,9 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             // OKが押されたらピンを削除するアラートアクションを作成.
             let myOkAction = UIAlertAction(title: "OK", style: .default) { action in
                 mapView.removeAnnotation(view.annotation!)
+                // 描画済みの経路を削除
+                self.conveniMapView.removeOverlays(self.conveniMapView.overlays)
+
             }
             
             //ピンの削除をキャンセルするアラートアクションを作成.
@@ -423,11 +426,36 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             // UIAlertを発動する.
             present(myAlert, animated: true, completion: nil)
         }else{
+            
+            
             //ポップオーバーの画面に遷移させて詳細情報を表示したい…
             print(route.distance/1000.0)
             print(route.expectedTravelTime/60)
+            
+//            //Prepare the instance of ContentViewController which is the content of popover.
+//            let contentVC = ContentViewController()
+//            //define use of popover
+//            contentVC.modalPresentationStyle = .popover
+//            //set size
+//            contentVC.preferredContentSize = CGSize(width: 300, height: 300)
+//            //set origin
+//            contentVC.popoverPresentationController?.sourceView = view
+//            contentVC.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:100, height:100)
+//            //set arrow direction
+//            contentVC.popoverPresentationController?.permittedArrowDirections = .any
+//            //set delegate
+//            contentVC.popoverPresentationController?.delegate = self
+//            //present
+//            present(contentVC, animated: true, completion: nil)
+//            
+            
         }
     }
+    
+//    /// Popover appears on iPhone
+//    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+//        return .none
+//    }
     
     
     /*
