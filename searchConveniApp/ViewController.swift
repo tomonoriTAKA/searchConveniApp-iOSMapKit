@@ -26,6 +26,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     @IBOutlet weak var trackingButton: UIBarButtonItem! // トラッキングのボタン
     @IBOutlet weak var userLocation: UITextField!
     
+    
     //userMKPointAnnotationクラスのファイルを読み込む
     let userAnnotation = userMKPointAnnotation()
     
@@ -432,30 +433,36 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             print(route.distance/1000.0)
             print(route.expectedTravelTime/60)
             
-//            //Prepare the instance of ContentViewController which is the content of popover.
-//            let contentVC = ContentViewController()
-//            //define use of popover
-//            contentVC.modalPresentationStyle = .popover
-//            //set size
-//            contentVC.preferredContentSize = CGSize(width: 300, height: 300)
-//            //set origin
-//            contentVC.popoverPresentationController?.sourceView = view
-//            contentVC.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:100, height:100)
-//            //set arrow direction
-//            contentVC.popoverPresentationController?.permittedArrowDirections = .any
-//            //set delegate
-//            contentVC.popoverPresentationController?.delegate = self
-//            //present
-//            present(contentVC, animated: true, completion: nil)
-//            
+            let storyboard: UIStoryboard = self.storyboard!
+            let contentView = storyboard.instantiateViewController(withIdentifier: "content") as! ContentViewController
             
+            //define use of popover
+            contentView.modalPresentationStyle = .popover
+            //set size
+            contentView.preferredContentSize = CGSize(width: 300, height: 300)
+            //set origin
+            
+            //ここのviewは最初に表示されるViewControllerのこと？？？？
+            contentView.popoverPresentationController?.sourceView = view
+            //
+            contentView.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:100, height:100)
+            //set arrow direction
+            contentView.popoverPresentationController?.permittedArrowDirections = .any
+            //set delegate
+            contentView.popoverPresentationController?.delegate = self
+            //present
+            present(contentView, animated: true, completion: nil)
+            
+            
+//            self.present(contentView, animated: true, completion: nil)
+
         }
     }
     
-//    /// Popover appears on iPhone
-//    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-//        return .none
-//    }
+    /// Popover appears on iPhone
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
     
     
     /*
