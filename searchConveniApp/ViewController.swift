@@ -72,10 +72,13 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     let jaProperty = jaProperties()
     
     
+    //AppDelegateを指定
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         
         
         // フィールドの初期化
@@ -430,32 +433,42 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             
             //ポップオーバーの画面に遷移させて詳細情報を表示したい…
+            
+            //AppDelegateのrouteInfoにMKRouteの情報を入れる
+            appDelegate.routeInfo = route
+            
+            
             print(route.distance/1000.0)
             print(route.expectedTravelTime/60)
             
+            
+            
+            
             let storyboard: UIStoryboard = self.storyboard!
+            
+            //ストーリーボード上のIDをcontentにした
             let contentView = storyboard.instantiateViewController(withIdentifier: "content") as! ContentViewController
             
             //define use of popover
             contentView.modalPresentationStyle = .popover
             //set size
             contentView.preferredContentSize = CGSize(width: 300, height: 300)
-            //set origin
             
+            //set origin
             //ここのviewは最初に表示されるViewControllerのこと？？？？
             contentView.popoverPresentationController?.sourceView = view
-            //
-            contentView.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:100, height:100)
+            
+            
+            contentView.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:250, height:250)
             //set arrow direction
             contentView.popoverPresentationController?.permittedArrowDirections = .any
             //set delegate
             contentView.popoverPresentationController?.delegate = self
+            
             //present
             present(contentView, animated: true, completion: nil)
             
             
-//            self.present(contentView, animated: true, completion: nil)
-
         }
     }
     

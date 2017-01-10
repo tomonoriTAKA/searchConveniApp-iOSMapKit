@@ -12,16 +12,41 @@ import CoreLocation
 
 class ContentViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    var routeInfo = ViewController().route
+    @IBOutlet weak var routeInfoLabel: UILabel!
+    
+    
+    /*
+     
+     ピンがタップされる→現在地からピンまでの経路情報(MKRoute)を取得→詳細ボタン押したときに所要時間と経路距離を出したい
+     
+     ↓↓↓
+     
+     VCのroute:MKRouteの値を一度AppDelegateに保存→ContentVCにて取得→ラベルに出力！
+     
+     
+     
+     */
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let routeDistance = routeInfo?.distance
-        let routeExpectedTravelTime = routeInfo?.expectedTravelTime
-        if (routeDistance != nil && routeExpectedTravelTime != nil){
-//        routeInfoText.text = String("現在地から\(Int(routeDistance!/1000))km,所要時間(自動車で)\(Int(routeExpectedTravelTime!/60))分")
-        }
+        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //ViewControllerから経路情報(route:MKRoute)を取得
+        let routeInfo = ViewController().route
+        
+        //距離情報だけを取り出して格納
+        let routeDistance = routeInfo?.distance
+        
+        //推定所要時間だけを取り出して格納
+        let routeExpectedTravelTime = routeInfo?.expectedTravelTime
+        
+        //ラベルに文字として出力
+        routeInfoLabel.text = "\(routeDistance),\(routeExpectedTravelTime)"
 
-
+    }
+    
 }

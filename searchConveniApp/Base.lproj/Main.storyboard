@@ -97,7 +97,22 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pb8-v0-Ned">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detail Info" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dz-XD-yjf">
+                                        <rect key="frame" x="50" y="50" width="275" height="547"/>
+                                        <color key="backgroundColor" red="0.92844592311373719" green="1" blue="0.51515423192654353" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.25781560207258702" green="1" blue="0.64766139065188466" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0dz-XD-yjf" firstAttribute="leading" secondItem="pb8-v0-Ned" secondAttribute="leading" constant="50" id="Hp4-Cu-5lU"/>
+                                    <constraint firstAttribute="trailing" secondItem="0dz-XD-yjf" secondAttribute="trailing" constant="50" id="XUg-0c-HfQ"/>
+                                    <constraint firstItem="0dz-XD-yjf" firstAttribute="top" secondItem="pb8-v0-Ned" secondAttribute="top" constant="50" id="XVb-Tt-90Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="0dz-XD-yjf" secondAttribute="bottom" constant="50" id="du6-Od-7FL"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,6 +123,9 @@
                             <constraint firstItem="qz2-lP-tJH" firstAttribute="top" secondItem="pb8-v0-Ned" secondAttribute="bottom" id="t1e-4U-LPk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="routeInfoLabel" destination="0dz-XD-yjf" id="sBe-NG-01h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtI-Wv-ZY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
