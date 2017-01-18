@@ -31,7 +31,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     let userAnnotation = userMKPointAnnotation()
     
     //経路情報を入れるもの
-    var route:MKRoute!
+    var route: MKRoute!
 
     
     /*AlertHelperクラスを読み込む*/
@@ -72,14 +72,11 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     let jaProperty = jaProperties()
     
     
-    //AppDelegateを指定
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //経路のインスタンス化
+        route = MKRoute()
         
         // フィールドの初期化
         lm = CLLocationManager()
@@ -110,10 +107,6 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         lm.desiredAccuracy = kCLLocationAccuracyKilometer
         // 位置情報取得間隔を指定．指定した値（メートル）移動したら位置情報を更新する．任意．
         lm.distanceFilter = 1000.0
-        
-        
-        // GPSの使用を開始する
-//        lm.startUpdatingLocation()
         
         //スケールを表示する
         conveniMapView.showsScale = true
@@ -156,9 +149,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
         // 座標を設定.
         myPin.coordinate = myCoordinate
         
-        // MARK: - 日本語の文字列はplistや別クラスで定義管理するとなお良い
- 
         
+        // MARK: - 日本語の文字列はplistや別クラスで定義管理するとなお良い
         // タイトルを設定.
         myPin.title = jaProperty.countryName //jaPropertiesクラスから"国名"を入力
         print(myPin.title!)
@@ -429,24 +421,32 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             // UIAlertを発動する.
             present(myAlert, animated: true, completion: nil)
-        }else{
+            
+            
+            
+        }else if (control == view.leftCalloutAccessoryView){//左の詳細ボタンが押されたときの処理
+            
+            
             
             
             //ポップオーバーの画面に遷移させて詳細情報を表示したい…
             
-            //AppDelegateのrouteInfoにMKRouteの情報を入れる
+            print(route.distance/1000.0) //これは表示される
+            //AppDelegateを読み込む
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            //AppDelegateにあるrouteInfoに経路情報routeを格納
             appDelegate.routeInfo = route
             
-            
-            print(route.distance/1000.0)
-            print(route.expectedTravelTime/60)
+            //ちゃんと格納されているか、上のprint文と結果がおなじになるか確認
+            print((appDelegate.routeInfo?.distance)! / 1000) //これを上と同じ数値になるように表示したい…
             
             
             
             
             let storyboard: UIStoryboard = self.storyboard!
             
-            //ストーリーボード上のIDをcontentにした
+            //ストーリーボード上のIDをcontentにしたVCをContentVCとしてセット
             let contentView = storyboard.instantiateViewController(withIdentifier: "content") as! ContentViewController
             
             //define use of popover
@@ -456,7 +456,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             //set origin
             //ここのviewは最初に表示されるViewControllerのこと？？？？
-            contentView.popoverPresentationController?.sourceView = view
+            contentView.popoverPresentationController?.sourceView = self.view
             
             
             contentView.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width:250, height:250)
@@ -465,12 +465,17 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             //set delegate
             contentView.popoverPresentationController?.delegate = self
             
+            
             //present
             present(contentView, animated: true, completion: nil)
             
             
+            
+            
         }
     }
+    
+    
     
     /// Popover appears on iPhone
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
@@ -592,7 +597,8 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             
             // mapViewにルートを描画.
             self.conveniMapView.add(self.route.polyline)
-        }    }
+        }
+    }
 
     // ルートの表示設定.
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

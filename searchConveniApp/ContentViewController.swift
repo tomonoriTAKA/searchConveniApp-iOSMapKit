@@ -17,14 +17,10 @@ class ContentViewController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     /*
      
-     ピンがタップされる→現在地からピンまでの経路情報(MKRoute)を取得→詳細ボタン押したときに所要時間と経路距離を出したい
-     
-     ↓↓↓
-     
-     VCのroute:MKRouteの値を一度AppDelegateに保存→ContentVCにて取得→ラベルに出力！
-     
-     
-     
+     ピンがタップされる
+     →現在地からピンまでの経路情報(MKRoute)を取得
+     →詳細ボタン押したときに所要時間と経路距離を出したい
+    
      */
     
     
@@ -34,19 +30,16 @@ class ContentViewController: UIViewController, MKMapViewDelegate, CLLocationMana
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        //ViewControllerから経路情報(route:MKRoute)を取得
-        let routeInfo = ViewController().route
+    //ContentViewControllerが表示されるたびによばれる（表示の直前に処理）
+    override func viewWillAppear(_ animated: Bool) {
+        //AppDelegateを読み込む
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        //距離情報だけを取り出して格納
-        let routeDistance = routeInfo?.distance
-        
-        //推定所要時間だけを取り出して格納
-        let routeExpectedTravelTime = routeInfo?.expectedTravelTime
-        
-        //ラベルに文字として出力
-        routeInfoLabel.text = "\(routeDistance),\(routeExpectedTravelTime)"
-
+        //AppDelegateからrouteInfoを呼び出し経路情報をラベルに表示
+        routeInfoLabel.text = "目的地まで\((appDelegate.routeInfo?.distance)!/1000.0)km\n自動車で\(Int((appDelegate.routeInfo?.expectedTravelTime)!/60))分"
     }
+    
+    
+    
     
 }
