@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D234996C1E077CB5009F5784 /* jaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D234996B1E077CB5009F5784 /* jaProperties.swift */; };
+		D234996C1E077CB5009F5784 /* JaProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D234996B1E077CB5009F5784 /* JaProperties.swift */; };
 		D26938E61E00E67100ECE1F2 /* pinFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D26938E51E00E67100ECE1F2 /* pinFilled@2x.png */; };
 		D29C61361DFFA5AD00D0F21F /* trackingHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D29C61331DFFA5AD00D0F21F /* trackingHeading@2x.png */; };
 		D29C61371DFFA5AD00D0F21F /* trackingFollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D29C61341DFFA5AD00D0F21F /* trackingFollow@2x.png */; };
@@ -19,14 +19,14 @@
 		D2A950B21DFE92D900078E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A950B01DFE92D900078E49 /* LaunchScreen.storyboard */; };
 		D2A950BB1DFE92FA00078E49 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */; };
 		D2A950BD1DFE930400078E49 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A950BC1DFE930400078E49 /* MapKit.framework */; };
-		D2A950C61DFE950800078E49 /* userMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */; };
+		D2A950C61DFE950800078E49 /* UserMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A950C51DFE950800078E49 /* UserMKPointAnnotation.swift */; };
 		D2E67ADB1E1CCEF90097867C /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E67ADA1E1CCEF90097867C /* ContentViewController.swift */; };
-		D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */; };
-		D2EEC89B1E0CBD82001D4BF2 /* userAndDestinationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */; };
+		D2EEC8991E0A68DA001D4BF2 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC8981E0A68DA001D4BF2 /* AlertHelper.swift */; };
+		D2EEC89B1E0CBD82001D4BF2 /* UserAndDestinationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEC89A1E0CBD82001D4BF2 /* UserAndDestinationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D234996B1E077CB5009F5784 /* jaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jaProperties.swift; sourceTree = "<group>"; };
+		D234996B1E077CB5009F5784 /* JaProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JaProperties.swift; sourceTree = "<group>"; };
 		D26938E51E00E67100ECE1F2 /* pinFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinFilled@2x.png"; sourceTree = "<group>"; };
 		D29C61331DFFA5AD00D0F21F /* trackingHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackingHeading@2x.png"; sourceTree = "<group>"; };
 		D29C61341DFFA5AD00D0F21F /* trackingFollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackingFollow@2x.png"; sourceTree = "<group>"; };
@@ -40,10 +40,10 @@
 		D2A950B31DFE92D900078E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2A950BA1DFE92FA00078E49 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D2A950BC1DFE930400078E49 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userMKPointAnnotation.swift; sourceTree = "<group>"; };
+		D2A950C51DFE950800078E49 /* UserMKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMKPointAnnotation.swift; sourceTree = "<group>"; };
 		D2E67ADA1E1CCEF90097867C /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
-		D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alertHelper.swift; sourceTree = "<group>"; };
-		D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userAndDestinationModel.swift; sourceTree = "<group>"; };
+		D2EEC8981E0A68DA001D4BF2 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		D2EEC89A1E0CBD82001D4BF2 /* UserAndDestinationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAndDestinationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +83,10 @@
 				D2A950A71DFE92D900078E49 /* AppDelegate.swift */,
 				D2A950A91DFE92D900078E49 /* ViewController.swift */,
 				D2E67ADA1E1CCEF90097867C /* ContentViewController.swift */,
-				D2EEC89A1E0CBD82001D4BF2 /* userAndDestinationModel.swift */,
-				D2EEC8981E0A68DA001D4BF2 /* alertHelper.swift */,
-				D2A950C51DFE950800078E49 /* userMKPointAnnotation.swift */,
-				D234996B1E077CB5009F5784 /* jaProperties.swift */,
+				D2EEC89A1E0CBD82001D4BF2 /* UserAndDestinationModel.swift */,
+				D2EEC8981E0A68DA001D4BF2 /* AlertHelper.swift */,
+				D2A950C51DFE950800078E49 /* UserMKPointAnnotation.swift */,
+				D234996B1E077CB5009F5784 /* JaProperties.swift */,
 				D2A950AB1DFE92D900078E49 /* Main.storyboard */,
 				D2A950AE1DFE92D900078E49 /* Assets.xcassets */,
 				D2A950B01DFE92D900078E49 /* LaunchScreen.storyboard */,
@@ -192,12 +192,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2A950C61DFE950800078E49 /* userMKPointAnnotation.swift in Sources */,
-				D234996C1E077CB5009F5784 /* jaProperties.swift in Sources */,
+				D2A950C61DFE950800078E49 /* UserMKPointAnnotation.swift in Sources */,
+				D234996C1E077CB5009F5784 /* JaProperties.swift in Sources */,
 				D2A950AA1DFE92D900078E49 /* ViewController.swift in Sources */,
-				D2EEC8991E0A68DA001D4BF2 /* alertHelper.swift in Sources */,
+				D2EEC8991E0A68DA001D4BF2 /* AlertHelper.swift in Sources */,
 				D2A950A81DFE92D900078E49 /* AppDelegate.swift in Sources */,
-				D2EEC89B1E0CBD82001D4BF2 /* userAndDestinationModel.swift in Sources */,
+				D2EEC89B1E0CBD82001D4BF2 /* UserAndDestinationModel.swift in Sources */,
 				D2E67ADB1E1CCEF90097867C /* ContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

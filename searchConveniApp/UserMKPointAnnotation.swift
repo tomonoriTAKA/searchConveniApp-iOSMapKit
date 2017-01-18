@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class userMKPointAnnotation: MKPointAnnotation {
+class UserMKPointAnnotation: MKPointAnnotation {
     //ピンの色
     var pinColor:UIColor = UIColor.magenta
 

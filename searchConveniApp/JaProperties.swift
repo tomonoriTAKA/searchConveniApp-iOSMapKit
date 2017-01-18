@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class jaProperties{
+class JaProperties{
     let countryName = "国名"
     let trackingFollow = "trackingFollow"
     let trackingNone = "trackingNone"

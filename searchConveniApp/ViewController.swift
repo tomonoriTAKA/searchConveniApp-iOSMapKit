@@ -28,7 +28,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     
     
     //userMKPointAnnotationクラスのファイルを読み込む
-    let userAnnotation = userMKPointAnnotation()
+    let userAnnotation = UserMKPointAnnotation()
     
     //経路情報を入れるもの
     var route: MKRoute!
@@ -37,6 +37,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     /*AlertHelperクラスを読み込む*/
     var showAlert = AlertHelper()
     
+    var region:MKCoordinateRegion!
     
     
     // 現在地の位置情報の取得にはCLLocationManagerを使用
@@ -57,7 +58,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     var searchedPin: MKPointAnnotation?
     
     //検索後の地図表示範囲を指定するクラスを読み込む
-    var showRegion = userAndDestinationModel()
+    var showRegion = UserAndDestinationModel()
     
     //長押しで立てるピン
     var myPin: MKPointAnnotation!
@@ -69,7 +70,7 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
     var routeRenderer:MKPolylineRenderer?
     
     //別ファイルのjaPropertiesクラスを読み込む
-    let jaProperty = jaProperties()
+    let jaProperty = JaProperties()
     
     
     override func viewDidLoad() {
@@ -529,9 +530,17 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
                         //ピンを刺す
                         self.conveniMapView.addAnnotation(self.searchedPin!)
                         
-                        //現在地と検索結果のピンが収まるように地図を表示する
+                        //現在地と検索結果のピンが収まるように表示する領域を計算
                         self.showRegion.showUserAndDestinationOnMap(
                             userLatitude: self.userLatitude, userLongitude: self.userLongitude, annotation: self.searchedPin, mapView: self.conveniMapView)
+                        
+                        //表示範囲を取得
+                        self.region = self.showRegion.region
+                        
+                        //表示範囲を画面上の地図に反映
+                        self.getShowRegion(mapView: self.conveniMapView, region: self.region)
+                        
+                        
                         
                         //検索が終了したアラートを出す
                         let title = "検索が完了しました"
@@ -599,6 +608,14 @@ class ViewController: UIViewController, UISearchBarDelegate,CLLocationManagerDel
             self.conveniMapView.add(self.route.polyline)
         }
     }
+    
+    
+    //表示範囲を決めるメソッド
+    func getShowRegion(mapView:MKMapView!,region:MKCoordinateRegion!){
+        mapView.setRegion(mapView.regionThatFits(region), animated:true)
+    }
+    
+    
 
     // ルートの表示設定.
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
